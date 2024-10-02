@@ -56,3 +56,21 @@ function f2() {
 document.querySelector('.s-1').addEventListener('change', f2)
 
 f2.apply(document.querySelector('.s-1'))
+
+const animal = {
+  cat: function () {
+    console.log('May')
+    return this
+  },
+
+  dog: {
+    breed: 'DOG',
+    speak: function () {
+      console.log('Woof')
+      return this
+    },
+  },
+}
+
+// console.log(animal.cat())
+console.log(animal.dog.speak())
