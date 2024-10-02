@@ -40,37 +40,63 @@ const vaselina = {
 
 // console.log(numbers.mult(5))
 
-document.querySelector('.btn').onclick = function () {
+// document.querySelector('.btn').onclick = function () {
+//   console.log(this)
+//   let r = 5
+//   r++
+//   this.innerHTML += ' 0'
+//   this.style.borderRadius = `${r}px`
+// }
+
+// function f2() {
+//   console.log(this)
+//   document.querySelector('.out-block').textContent = this.value
+// }
+
+// document.querySelector('.s-1').addEventListener('change', f2)
+
+// f2.apply(document.querySelector('.s-1'))
+
+// const animal = {
+//   cat: function () {
+//     console.log('May')
+//     return this
+//   },
+
+//   dog: {
+//     breed: 'DOG',
+//     speak: function () {
+//       console.log('Woof')
+//       return this
+//     },
+//   },
+// }
+
+// // console.log(animal.cat())
+// console.log(animal.dog.speak())
+
+// const car = {
+//   model: 'Toyota',
+//   year: 2007,
+//   showModel: function (color = 'red', engine = 'diesel') {
+//     console.log(this)
+//     console.log(`${this.model}, color: ${color}, engine: ${engine}`)
+//   },
+// }
+
+// car.showModel()
+
+const car2 = {
+  model: 'Mers',
+  year: 2008,
+}
+
+// car.showModel.call(car2, 'green', 'gas')
+
+Object.prototype.showModel = function (color = 'red', engine = 'diesel') {
   console.log(this)
-  let r = 5
-  r++
-  this.innerHTML += ' 0'
-  this.style.borderRadius = `${r}px`
+  console.log(`${this.model}, color: ${color}, engine: ${engine}`)
 }
 
-function f2() {
-  console.log(this)
-  document.querySelector('.out-block').textContent = this.value
-}
-
-document.querySelector('.s-1').addEventListener('change', f2)
-
-f2.apply(document.querySelector('.s-1'))
-
-const animal = {
-  cat: function () {
-    console.log('May')
-    return this
-  },
-
-  dog: {
-    breed: 'DOG',
-    speak: function () {
-      console.log('Woof')
-      return this
-    },
-  },
-}
-
-// console.log(animal.cat())
-console.log(animal.dog.speak())
+car2.showModel('green', 'gas')
+// https://habr.com/ru/articles/464163/ Почитать про this
