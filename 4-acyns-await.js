@@ -57,3 +57,11 @@ p.then((data) => {
   .finally(() => {
     console.log('Finally')
   })
+
+const sleep = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), ms)
+  })
+}
+
+sleep(2000).then(() => console.log('After 2 sec'))
