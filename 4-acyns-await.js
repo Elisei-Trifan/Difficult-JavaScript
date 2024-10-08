@@ -1,20 +1,59 @@
-// /*
-// Асинхронность с помощью колбэков
+/* // ========== Асинхронность с помощью колбэков
+
+// console.log('Request data...')
+
+// setTimeout(() => {
+//   console.log('Preparing data...')
+
+//   const backendData = {
+//     server: 'aws',
+//     port: 2000,
+//     status: 'working',
+//   }
+//   setTimeout(() => {
+//     backendData.modify = true
+//     console.log('Data received', backendData)
+//   }, 2000)
+// }, 2000)
+
+*/
+
+// ========== Асинхронность с помощью Promise
 
 console.log('Request data...')
 
-setTimeout(() => {
-  console.log('Preparing data...')
-
-  const backendData = {
-    server: 'aws',
-    port: 2000,
-    status: 'working',
-  }
+const p = new Promise((resolve, reject) => {
   setTimeout(() => {
-    backendData.modify = true
-    console.log('Data received', backendData)
-  }, 2000)
-}, 2000)
+    console.log('Preparing data...')
 
-// */
+    const backendData = {
+      server: 'aws',
+      port: 2000,
+      status: 'working',
+    }
+    resolve(backendData)
+  }, 2000)
+})
+
+p.then((data) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      data.modify = true
+      resolve(data)
+    }, 2000)
+  })
+})
+  .then((clientData) => {
+    console.log('Data resolved', clientData)
+    clientData.fromPromise = false
+    return clientData
+  })
+  .then((data) => {
+    console.log('Modify', data)
+  })
+  .catch((er) => {
+    console.error('Error:', er)
+  })
+  .finally(() => {
+    console.log('Finally')
+  })
