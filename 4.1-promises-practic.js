@@ -1,4 +1,4 @@
-///* // Callback hell
+/* // Callback hell
 function fetchUserInfo(callback) {
   setTimeout(() => {
     /// fetch
@@ -37,7 +37,7 @@ function run() {
 }
 
 run()
-//*/
+*/
 
 function fetchUserInfo() {
   return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ function fetchUserInfo() {
   })
 }
 
-function fetchUserGames() {
+function fetchUserGames(id) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const data = ['game1', 'game2']
@@ -59,12 +59,14 @@ function fetchUserGames() {
 }
 
 function run() {
-  fetchUserInfo().then((userData) => {
-    console.log(userData)
-    fetchUserGames().then((userGames) => {
+  fetchUserInfo()
+    .then((userData) => {
+      console.log(userData)
+      return fetchUserGames(userData.id)
+    })
+    .then((userGames) => {
       console.log(userGames)
     })
-  })
 }
 
 run()
