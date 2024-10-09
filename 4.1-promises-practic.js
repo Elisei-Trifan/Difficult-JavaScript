@@ -1,3 +1,4 @@
+///* // Callback hell
 function fetchUserInfo(callback) {
   setTimeout(() => {
     /// fetch
@@ -14,7 +15,7 @@ function fetchUserGames(id, callback) {
   }, 2000)
 }
 
-function fetchUserCars(id, callback) {
+function fetchUserCars(index, callback) {
   ///fetch
   setTimeout(() => {
     const cars = ['mers', 'bmw', 'opel']
@@ -31,6 +32,37 @@ function run() {
     })
     fetchUserCars(userInfo.id, (userCars) => {
       console.log(userCars)
+    })
+  })
+}
+
+run()
+//*/
+
+function fetchUserInfo() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      /// fetch
+      const data = { id: 1, name: 'Elisei' }
+      resolve(data)
+    }, 1000)
+  })
+}
+
+function fetchUserGames() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const data = ['game1', 'game2']
+      resolve(data)
+    }, 2000)
+  })
+}
+
+function run() {
+  fetchUserInfo().then((userData) => {
+    console.log(userData)
+    fetchUserGames().then((userGames) => {
+      console.log(userGames)
     })
   })
 }
