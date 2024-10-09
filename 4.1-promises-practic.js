@@ -39,6 +39,7 @@ function run() {
 run()
 */
 
+/* // Promisse
 function fetchUserInfo() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -70,3 +71,26 @@ function run() {
 }
 
 run()
+*/
+
+function fetchGames() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const gamesFromServer = [
+        { id: 1, name: 'Человек паук' },
+        { id: 2, name: 'Марио' },
+      ]
+      resolve(gamesFromServer)
+    }, 2000)
+  })
+}
+
+const body = document.querySelector('body')
+
+gamesFromServer.forEach((game) => {
+  const gameElement = document.createElement('div')
+  gameElement.innerText = `Игра: ${game.name}`
+  gameElement.className = 'game-element'
+
+  body.append(gameElement)
+})
