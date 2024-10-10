@@ -117,15 +117,26 @@ function renderGames(games) {
 
 renderLoading()
 
+function errorRender(message) {
+  loading.remove()
+  const err = document.createElement('p')
+  err.textContent = message
+  body.append(err)
+}
+
 fetchGames()
   .then((games) => {
     renderGames(games)
   })
   .catch((message) => {
-    loading.remove()
-    const err = document.createElement('p')
-    err.textContent = message
-    body.append(err)
+    errorRender(message)
+  })
+  .finally(() => {
+    setTimeout(() => {
+      const fin = document.createElement('p')
+      fin.textContent = 'Промис завершен'
+      body.append(fin)
+    }, 300)
   })
 
 const body = document.querySelector('body')
