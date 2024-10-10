@@ -76,21 +76,56 @@ run()
 function fetchGames() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const gamesFromServer = [
-        { id: 1, name: 'Человек паук' },
-        { id: 2, name: 'Марио' },
-      ]
-      resolve(gamesFromServer)
+      const gamesFromServer = 'edcsdsdvs'
+      //   const gamesFromServer = [
+      //     { id: 1, name: 'Человек паук' },
+      //     { id: 2, name: 'Марио' },
+      //   ]
+      if (Array.isArray(gamesFromServer)) {
+        resolve(gamesFromServer)
+      } else {
+        reject('Произошла ошибка при загрузке данных')
+      }
     }, 2000)
   })
 }
 
+function renderLoading() {
+  const body = document.querySelector('body')
+
+  const loading = document.createElement('div')
+  loading.id = 'loading'
+  loading.textContent = 'Загрузка...'
+
+  body.append(loading)
+}
+
+function renderGames(games) {
+  const body = document.querySelector('body')
+
+  const loading = document.querySelector('#loading')
+  loading.remove()
+
+  games.forEach((game) => {
+    const gameElement = document.createElement('div')
+    gameElement.innerText = `Игра: ${game.name}`
+    gameElement.className = 'game-element'
+
+    body.append(gameElement)
+  })
+}
+
+renderLoading()
+
+fetchGames()
+  .then((games) => {
+    renderGames(games)
+  })
+  .catch((message) => {
+    loading.remove()
+    const err = document.createElement('p')
+    err.textContent = message
+    body.append(err)
+  })
+
 const body = document.querySelector('body')
-
-gamesFromServer.forEach((game) => {
-  const gameElement = document.createElement('div')
-  gameElement.innerText = `Игра: ${game.name}`
-  gameElement.className = 'game-element'
-
-  body.append(gameElement)
-})
