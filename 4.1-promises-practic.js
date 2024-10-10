@@ -73,14 +73,15 @@ function run() {
 run()
 */
 
+/* 
 function fetchGames() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const gamesFromServer = 'edcsdsdvs'
-      //   const gamesFromServer = [
-      //     { id: 1, name: 'Человек паук' },
-      //     { id: 2, name: 'Марио' },
-      //   ]
+      //   const gamesFromServer = 'edcsdsdvs'
+      const gamesFromServer = [
+        { id: 1, name: 'Человек паук' },
+        { id: 2, name: 'Марио' },
+      ]
       if (Array.isArray(gamesFromServer)) {
         resolve(gamesFromServer)
       } else {
@@ -140,3 +141,62 @@ fetchGames()
   })
 
 const body = document.querySelector('body')
+*/
+//  =============================================
+
+function fetchAllVideo() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const allVideo = [
+        { id: 1, title: 'топ 10 видео в 2024 году' },
+        { id: 2, title: 'Укладка плитки' },
+        { id: 3, title: 'Размножение можжевельников' },
+      ]
+      resolve(allVideo)
+    }, 1000)
+  })
+}
+
+function fetchDescriptionVideo(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const description = {
+        id: 1,
+        title: 'топ 10 видео в 2024 году',
+        hashTags: ['топ', '2024'],
+        authorId: 55,
+      }
+      resolve(description)
+    }, 2000)
+  })
+}
+
+function renderVideo(arg) {
+  const body = document.querySelector('body')
+
+  if (Array.isArray(arg)) {
+    arg.forEach((item) => {
+      const video = document.createElement('li')
+      video.innerHTML = item.title
+
+      body.append(video)
+    })
+  } else {
+    const info = document.createElement('p')
+    info.textContent = arg.title
+    body.append(info)
+  }
+}
+
+function main() {
+  fetchAllVideo()
+    .then((video) => {
+      renderVideo(video)
+      return fetchDescriptionVideo(video[1])
+    })
+    .then((description) => {
+      renderVideo(description)
+    })
+}
+
+main()
