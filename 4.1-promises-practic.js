@@ -153,21 +153,46 @@ function fetchAllVideo() {
         { id: 3, title: 'Размножение можжевельников' },
       ]
       resolve(allVideo)
-    }, 1000)
+    }, 300)
   })
 }
 
 function fetchDescriptionVideo(id) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const description = {
-        id: 1,
-        title: 'топ 10 видео в 2024 году',
-        hashTags: ['топ', '2024'],
-        authorId: 55,
+      if (id === 1) {
+        const description = {
+          id: 1,
+          title: 'топ 10 видео в 2024 году',
+          hashTags: ['топ', '2024'],
+          authorId: 55,
+        }
+        resolve(description)
+      } else if (id === 2) {
+        const description = {
+          id: 2,
+          title: 'Укладка плитки',
+          hashTags: ['плитка', 'укладка'],
+          authorId: 60,
+        }
+        resolve(description)
       }
-      resolve(description)
-    }, 2000)
+    }, 500)
+  })
+}
+
+function fetchAuthorInfo() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      //   const authorId = description.authorId
+      const author = {
+        id: 55,
+        name: 'JavaScript',
+        videiIds: [1, 2, 3],
+        shortsIds: [10, 20, 30],
+      }
+      resolve(author)
+    }, 700)
   })
 }
 
@@ -183,7 +208,7 @@ function renderVideo(arg) {
     })
   } else {
     const info = document.createElement('p')
-    info.textContent = arg.title
+    info.textContent = arg.title || arg.shortsIds
     body.append(info)
   }
 }
@@ -192,10 +217,14 @@ function main() {
   fetchAllVideo()
     .then((video) => {
       renderVideo(video)
-      return fetchDescriptionVideo(video[1])
+      return fetchDescriptionVideo(1)
     })
     .then((description) => {
       renderVideo(description)
+      return fetchAuthorInfo()
+    })
+    .then((author) => {
+      renderVideo(author)
     })
 }
 
